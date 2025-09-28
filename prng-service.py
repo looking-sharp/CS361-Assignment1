@@ -1,0 +1,1 @@
+print("Prng service active")
