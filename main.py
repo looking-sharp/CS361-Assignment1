@@ -1,6 +1,4 @@
-import subprocess
 import time
-import sys
 from PIL import Image
 
 prngFileName = "prng-service.txt"
@@ -13,11 +11,6 @@ def waitForResponseMessage(waitingFor):
         time.sleep(0.5)
         print(".")
     time.sleep(0.3)
-
-# start running the other python scripts
-p1 = subprocess.Popen([sys.executable, "image-service.py"])
-p2 = subprocess.Popen([sys.executable, "prng-service.py"])
-
 
 while(1):
     # ensure files are empty
@@ -72,8 +65,4 @@ while(1):
     img = Image.open(imageResponse)
     img.show()
     time.sleep(1)
-    
-# end the other processes
-p1.terminate()
-p2.terminate()
 
