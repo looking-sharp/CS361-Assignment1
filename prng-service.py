@@ -9,8 +9,6 @@ def writeRandomNumber():
         num = random.randint(0, sys.maxsize)
         f.write(str(num))
 
-
-
 while True:
     with open(filename, 'r') as f:
         f.seek(0)

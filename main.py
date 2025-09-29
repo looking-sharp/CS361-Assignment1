@@ -10,7 +10,7 @@ def waitForResponseMessage(waitingFor):
     print(f"waiting for response from {waitingFor}")
     for i in range(3):
         time.sleep(0.5)
-        print(f".")
+        print(".")
     time.sleep(0.3)
 
 # start running the other python scripts
@@ -26,11 +26,14 @@ print('')
 while(1):
     userResponse = (int)(input("Would you like to (1) See a Chest CT (2) exit: "))
     print()
+    #check if user wants to exit
     if(userResponse == 2):
         break
+
     # tell prng service to run
     with open(prngFileName, 'w') as f:
         f.write('run')
+
     # wait for prng service to return random number
     prngResponse = None
     with open(prngFileName, 'r') as f:
@@ -44,13 +47,15 @@ while(1):
         # display response
         print(f"Response Recieved: {prngResponse} \n")
     time.sleep(1)
+
     # give random number to image service
     with open(imageFileName, 'w') as f:
         f.write(prngResponse)
+    
     # wait for image service to return random image
     imageResponse = None
     with open(imageFileName, 'r') as f:
-        # wait for number to be in file
+        # wait for file path to be in file
         while(f.read().isdigit()):
             f.seek(0) # reset file pointer
             waitForResponseMessage("image service")
@@ -61,9 +66,10 @@ while(1):
         print(f"Response Recieved: {imageResponse} \n")
     time.sleep(0.5)
 
+    #Display Image to User
     img = Image.open(imageResponse)
     img.show()
-    
+    time.sleep(1)
     
     
         

@@ -11,9 +11,6 @@ def writeImage(prngResponse):
         abs_path = os.path.abspath(image_path)
         f.write(abs_path)
 
-
-
-
 while True:
     with open(filename, 'r') as f:
         f.seek(0)
