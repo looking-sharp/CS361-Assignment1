@@ -11,8 +11,8 @@ def writeRandomNumber():
 
 while True:
     with open(filename, 'r') as f:
-        f.seek(0)
-        if(f.read().strip() == 'run'):
+        content = f.read().strip()
+        if (content == 'run'):
             time.sleep(1)
             writeRandomNumber()
     time.sleep(0.5)

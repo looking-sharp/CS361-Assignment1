@@ -1,5 +1,6 @@
 import subprocess
 import time
+import sys
 from PIL import Image
 
 prngFileName = "prng-service.txt"
@@ -14,16 +15,17 @@ def waitForResponseMessage(waitingFor):
     time.sleep(0.3)
 
 # start running the other python scripts
-subprocess.Popen(["python", "image-service.py"])
-subprocess.Popen(["python", "prng-service.py"])
+p1 = subprocess.Popen([sys.executable, "image-service.py"])
+p2 = subprocess.Popen([sys.executable, "prng-service.py"])
 
-#ensure files are empty
-open(prngFileName, 'w').close()
-open(imageFileName, 'w').close()
 
-time.sleep(0.5)
-print('')
 while(1):
+    # ensure files are empty
+    open(prngFileName, 'w').close()
+    open(imageFileName, 'w').close()
+    time.sleep(0.5)
+
+    # get user input
     userResponse = (int)(input("Would you like to (1) See a Chest CT (2) exit: "))
     print()
     #check if user wants to exit
@@ -71,6 +73,7 @@ while(1):
     img.show()
     time.sleep(1)
     
-    
-        
+# end the other processes
+p1.terminate()
+p2.terminate()
 
